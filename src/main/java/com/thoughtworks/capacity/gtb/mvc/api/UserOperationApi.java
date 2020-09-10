@@ -27,11 +27,7 @@ public class UserOperationApi {
     }
 
     @GetMapping("/login")
-    public ResponseEntity login(@NotNull(message = "用户名不能为空")
-                                @Size(min = 3, max = 10, message = "用户名不合法")
-                                @Pattern(regexp = "^[0-9a-zA-Z_]{1,}$", message = "用户名不合法") String username, @NotNull(message = "密码不能为空")
-                                @Size(min = 5, max = 12, message = "密码不合法") String password) throws InvalidParamsException {
-        User user = new User(null, username, null, password);
+    public ResponseEntity login(@Valid User user) throws InvalidParamsException {
         userOperationService.login(user);
         return ResponseEntity.ok().build();
     }
