@@ -1,12 +1,9 @@
 package com.thoughtworks.capacity.gtb.mvc.service;
 
 import com.thoughtworks.capacity.gtb.mvc.domain.User;
+import com.thoughtworks.capacity.gtb.mvc.exception.InvalidParamsException;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +36,7 @@ public class UserOperationServiceTest {
     public void should_throw_exception_when_username_is_null(){
         UserOperationService userOperationService = new UserOperationService(userList);
         User user = new User(null,null,null,"111111");
-        Throwable exception = assertThrows(Exception.class,
+        Throwable exception = assertThrows(InvalidParamsException.class,
                 () -> userOperationService.register(user));
         assertEquals("用户名不能为空",exception.getMessage());
     }
@@ -48,7 +45,7 @@ public class UserOperationServiceTest {
     public void should_throw_exception_when_password_is_null(){
         UserOperationService userOperationService = new UserOperationService(userList);
         User user = new User(null,"zuowen",null,null);
-        Throwable exception = assertThrows(Exception.class,
+        Throwable exception = assertThrows(InvalidParamsException.class,
                 () -> userOperationService.register(user));
         assertEquals("密码不能为空",exception.getMessage());
     }
@@ -57,7 +54,7 @@ public class UserOperationServiceTest {
     public void should_throw_exception_when_username_is_invalid(){
         UserOperationService userOperationService = new UserOperationService(userList);
         User user = new User(null,"zuo-wen",null,"123123");
-        Throwable exception = assertThrows(Exception.class,
+        Throwable exception = assertThrows(InvalidParamsException.class,
                 () -> userOperationService.register(user));
         assertEquals("用户名不合法",exception.getMessage());
     }
@@ -66,7 +63,7 @@ public class UserOperationServiceTest {
     public void should_throw_exception_when_password_is_invalid(){
         UserOperationService userOperationService = new UserOperationService(userList);
         User user = new User(null,"zuowen",null,"123");
-        Throwable exception = assertThrows(Exception.class,
+        Throwable exception = assertThrows(InvalidParamsException.class,
                 () -> userOperationService.register(user));
         assertEquals("密码不合法",exception.getMessage());
     }
@@ -75,7 +72,7 @@ public class UserOperationServiceTest {
     public void should_throw_exception_when_email_is_invalid(){
         UserOperationService userOperationService = new UserOperationService(userList);
         User user = new User(null,"zuowen","null","123123");
-        Throwable exception = assertThrows(Exception.class,
+        Throwable exception = assertThrows(InvalidParamsException.class,
                 () -> userOperationService.register(user));
         assertEquals("邮箱地址不合法",exception.getMessage());
     }
@@ -84,7 +81,7 @@ public class UserOperationServiceTest {
     public void should_throw_exception_when_user_is_exist(){
         UserOperationService userOperationService = new UserOperationService(userList);
         User user = new User(null,"作文",null,"123123");
-        Throwable exception = assertThrows(Exception.class,
+        Throwable exception = assertThrows(InvalidParamsException.class,
                 () -> userOperationService.register(user));
         assertEquals("用户已存在",exception.getMessage());
     }
