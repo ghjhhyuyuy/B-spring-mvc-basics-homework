@@ -70,4 +70,13 @@ public class UserOperationServiceTest {
                 () -> userOperationService.register(user));
         assertEquals("密码不合法",exception.getMessage());
     }
+
+    @Test
+    public void should_throw_exception_when_email_is_invalid(){
+        UserOperationService userOperationService = new UserOperationService(userList);
+        User user = new User(null,"zuowen","null","123123");
+        Throwable exception = assertThrows(Exception.class,
+                () -> userOperationService.register(user));
+        assertEquals("邮箱地址不合法",exception.getMessage());
+    }
 }
