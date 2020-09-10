@@ -1,11 +1,12 @@
 package com.thoughtworks.capacity.gtb.mvc.service;
 
 import com.thoughtworks.capacity.gtb.mvc.domain.User;
+import com.thoughtworks.capacity.gtb.mvc.exception.InvalidParamsException;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by wzw on 2020/9/10.
@@ -17,7 +18,11 @@ public class UserOperationService {
         this.userList = userList;
     }
 
-    public void register(User user) {
+    public void register(User user) throws InvalidParamsException {
+        Stream<Object> result = userList.stream().map(theUser -> theUser.getUserName().equals(user.getUserName()));
+        if(!(result.toArray().length == 0)){
+            throw new InvalidParamsException("用户已存在");
+        }
         userList.add(user);
     }
 }

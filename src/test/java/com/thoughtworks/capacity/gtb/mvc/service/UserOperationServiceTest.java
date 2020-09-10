@@ -23,7 +23,7 @@ public class UserOperationServiceTest {
         userList.add(user);
     }
     @Test
-    public void should_add_user_when_given_correct_parameters(){
+    public void should_add_user_when_given_correct_parameters() throws InvalidParamsException {
         UserOperationService userOperationService = new UserOperationService(userList);
         User user = new User(null,"zuowen",null,"111111");
         userOperationService.register(user);
