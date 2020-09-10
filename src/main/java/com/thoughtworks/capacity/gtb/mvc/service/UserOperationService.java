@@ -19,7 +19,7 @@ public class UserOperationService {
     }
 
     public void register(User user) throws InvalidParamsException {
-        Stream<Object> result = userList.stream().map(theUser -> theUser.getUserName().equals(user.getUserName()));
+        Stream<User> result = userList.stream().filter(theUser -> theUser.getUserName().equals(user.getUserName()));
         if(!(result.toArray().length == 0)){
             throw new InvalidParamsException("用户已存在");
         }

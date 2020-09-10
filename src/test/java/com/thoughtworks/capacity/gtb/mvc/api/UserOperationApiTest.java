@@ -1,6 +1,5 @@
 package com.thoughtworks.capacity.gtb.mvc.api;
 
-import com.thoughtworks.capacity.gtb.mvc.domain.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +27,7 @@ public class UserOperationApiTest {
     private MockMvc mockMvc;
     @Before
     public void setUp() throws Exception {
-        String userJson = "{\"username\":\"wangzuowen\",\"password\":\"123456\"}";
+        String userJson = "{\"userName\":\"wangzuowen\",\"password\":\"123456\"}";
         MvcResult result = mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userJson))
@@ -36,7 +35,7 @@ public class UserOperationApiTest {
     }
     @Test
     public void should_add_user_when_given_correct_parameters() throws Exception {
-        String userJson = "{\"username\":\"tomtom\",\"password\":\"123456\"}";
+        String userJson = "{\"userName\":\"tomtom\",\"password\":\"123456\"}";
         MvcResult result = mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userJson))
@@ -57,7 +56,7 @@ public class UserOperationApiTest {
 
     @Test
     public void should_throw_exception_when_password_is_null() throws Exception {
-        String userJson = "{\"username\":\"tomtom\"}";
+        String userJson = "{\"userName\":\"tomtom\"}";
         MvcResult result = mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userJson))
@@ -69,7 +68,7 @@ public class UserOperationApiTest {
 
     @Test
     public void should_throw_exception_when_username_is_invalid() throws Exception {
-        String userJson = "{\"username\":\"tom\",\"password\":\"123456\"}";
+        String userJson = "{\"userName\":\"to\",\"password\":\"123456\"}";
         MvcResult result = mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userJson))
@@ -81,7 +80,7 @@ public class UserOperationApiTest {
 
     @Test
     public void should_throw_exception_when_password_is_invalid() throws Exception {
-        String userJson = "{\"username\":\"tomtom\",\"password\":\"12\"}";
+        String userJson = "{\"userName\":\"tomtom\",\"password\":\"12\"}";
         MvcResult result = mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userJson))
@@ -93,7 +92,7 @@ public class UserOperationApiTest {
 
     @Test
     public void should_throw_exception_when_email_is_invalid() throws Exception {
-        String userJson = "{\"username\":\"tomtom\",\"password\":\"123456\",\"email\":\"123456\"}";
+        String userJson = "{\"userName\":\"tomtom\",\"password\":\"123456\",\"email\":\"123456\"}";
         MvcResult result = mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userJson))
@@ -105,7 +104,7 @@ public class UserOperationApiTest {
 
     @Test
     public void should_throw_exception_when_user_is_exist() throws Exception {
-        String userJson = "{\"username\":\"wangzuowen\",\"password\":\"123456\"}";
+        String userJson = "{\"userName\":\"wangzuowen\",\"password\":\"123456\"}";
         MvcResult result = mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userJson))
