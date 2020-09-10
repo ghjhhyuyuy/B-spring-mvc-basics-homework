@@ -43,4 +43,13 @@ public class UserOperationServiceTest {
                 () -> userOperationService.register(user));
         assertEquals("用户名不能为空",exception.getMessage());
     }
+
+    @Test
+    public void should_throw_exception_when_password_is_null(){
+        UserOperationService userOperationService = new UserOperationService(userList);
+        User user = new User(null,"zuowen",null,null);
+        Throwable exception = assertThrows(Exception.class,
+                () -> userOperationService.register(user));
+        assertEquals("密码不能为空",exception.getMessage());
+    }
 }
