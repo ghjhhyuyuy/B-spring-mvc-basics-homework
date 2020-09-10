@@ -43,7 +43,7 @@ public class UserOperationServiceTest {
     }
 
     @Test
-    public void should_return_user_message_when_username_and_password_is_right(){
+    public void should_return_user_message_when_username_and_password_is_right() throws InvalidParamsException {
         UserOperationService userOperationService = new UserOperationService(userList);
         User user = new User(null,"wangzuowen",null,"123123");
         User result = userOperationService.login(user);
@@ -56,7 +56,7 @@ public class UserOperationServiceTest {
     @Test
     public void should_throw_exception_when_username_and_password_is_wrong(){
         UserOperationService userOperationService = new UserOperationService(userList);
-        User user = new User(null,"wangzuowen",null,"123123");
+        User user = new User(null,"wangzuowen",null,"12312356");
         Throwable exception = assertThrows(InvalidParamsException.class,
                 () -> userOperationService.login(user));
         assertEquals("用户名或密码错误",exception.getMessage());

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -26,7 +27,11 @@ public class UserOperationService {
         userList.add(user);
     }
 
-    public User login(User user) {
-        return null;
+    public User login(User user) throws InvalidParamsException {
+        List<User> result = userList.stream().filter(theUser -> theUser.getUserName().equals(user.getUserName()) && theUser.getPassword().equals(user.getPassword())).collect(Collectors.toList());
+        if(result.isEmpty()){
+            throw new InvalidParamsException("用户名或密码错误");
+        }
+        return result.get(0);
     }
 }
