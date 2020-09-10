@@ -79,4 +79,13 @@ public class UserOperationServiceTest {
                 () -> userOperationService.register(user));
         assertEquals("邮箱地址不合法",exception.getMessage());
     }
+
+    @Test
+    public void should_throw_exception_when_user_is_exist(){
+        UserOperationService userOperationService = new UserOperationService(userList);
+        User user = new User(null,"作文",null,"123123");
+        Throwable exception = assertThrows(Exception.class,
+                () -> userOperationService.register(user));
+        assertEquals("用户已存在",exception.getMessage());
+    }
 }
