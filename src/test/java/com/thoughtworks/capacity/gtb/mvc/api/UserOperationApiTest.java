@@ -27,7 +27,7 @@ public class UserOperationApiTest {
     private MockMvc mockMvc;
     @Before
     public void setUp() throws Exception {
-        String userJson = "{\"userName\":\"wangzuowen\",\"password\":\"123456\"}";
+        String userJson = "{\"id\":1,\"userName\":\"wangzuowen\",\"password\":\"123456\",\"email\":\"798@qq.com\"}";
         MvcResult result = mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userJson))
@@ -110,6 +110,51 @@ public class UserOperationApiTest {
                 .content(userJson))
                 .andExpect(jsonPath("$.message", is("用户已存在")))
                 .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is(400)))
+                .andReturn();
+    }
+
+    @Test
+    public void should_return_user_message_when_username_and_password_is_right() throws Exception {
+        String userJson = "{\"userName\":\"wangzuowen\",\"password\":\"123456\"}";
+        MvcResult result = mockMvc.perform(post("/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(userJson))
+                .andExpect(status().isCreated())
+                .andReturn();
+    }
+    @Test
+    public void should_throw_exception_when_username_and_password_is_wrong() throws Exception {
+        String userJson = "{\"userName\":\"wangzuowen\",\"password\":\"1234567\"}";
+        MvcResult result = mockMvc.perform(post("/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(userJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message", is("用户名或密码错误")))
+                .andExpect(jsonPath("$.code", is(400)))
+                .andReturn();
+    }
+
+    @Test
+    public void should_throw_exception_when_login_password_is_invalid() throws Exception {
+        String userJson = "{\"userName\":\"wangzuowen\",\"password\":\"12\"}";
+        MvcResult result = mockMvc.perform(post("/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(userJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message", is("密码不合法")))
+                .andExpect(jsonPath("$.code", is(400)))
+                .andReturn();
+    }
+
+    @Test
+    public void should_throw_exception_when_login_username_is_invalid() throws Exception {
+        String userJson = "{\"userName\":\"wa\",\"password\":\"123456\"}";
+        MvcResult result = mockMvc.perform(post("/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(userJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message", is("用户名不合法")))
                 .andExpect(jsonPath("$.code", is(400)))
                 .andReturn();
     }
