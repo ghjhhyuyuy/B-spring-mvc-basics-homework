@@ -8,6 +8,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.net.BindException;
+
 /**
  * Created by wzw on 2020/9/10.
  */
@@ -21,8 +23,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Error> handle(MethodArgumentNotValidException ex) {
-        String message = ex.getBindingResult().getFieldError().getDefaultMessage();
+    public ResponseEntity<Error> handle(MethodArgumentNotValidException methodArgumentNotValidException) {
+        String message = methodArgumentNotValidException.getBindingResult().getFieldError().getDefaultMessage();
         HttpStatus state = HttpStatus.BAD_REQUEST;
         Error errorError = new Error(state.value(),message);
         return ResponseEntity.status(state).body(errorError);

@@ -20,7 +20,7 @@ public class UserOperationService {
     }
 
     public void register(User user) throws InvalidParamsException {
-        Stream<User> result = userList.stream().filter(theUser -> theUser.getUserName().equals(user.getUserName()));
+        Stream<User> result = userList.stream().filter(theUser -> theUser.getUsername().equals(user.getUsername()));
         if(!(result.toArray().length == 0)){
             throw new InvalidParamsException("用户已存在");
         }
@@ -28,7 +28,7 @@ public class UserOperationService {
     }
 
     public User login(User user) throws InvalidParamsException {
-        List<User> result = userList.stream().filter(theUser -> theUser.getUserName().equals(user.getUserName()) && theUser.getPassword().equals(user.getPassword())).collect(Collectors.toList());
+        List<User> result = userList.stream().filter(theUser -> theUser.getUsername().equals(user.getUsername()) && theUser.getPassword().equals(user.getPassword())).collect(Collectors.toList());
         if(result.isEmpty()){
             throw new InvalidParamsException("用户名或密码错误");
         }

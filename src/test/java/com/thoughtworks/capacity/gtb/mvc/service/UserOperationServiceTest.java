@@ -28,7 +28,7 @@ public class UserOperationServiceTest {
         User user = new User(null,"zuowen",null,"111111");
         userOperationService.register(user);
         assertEquals(2,userList.size());
-        assertEquals("zuowen",userList.get(1).getUserName());
+        assertEquals("zuowen",userList.get(1).getUsername());
         assertEquals("111111",userList.get(1).getPassword());
     }
 
@@ -48,7 +48,7 @@ public class UserOperationServiceTest {
         User user = new User(null,"wangzuowen",null,"123123");
         User result = userOperationService.login(user);
         assertEquals("123123",result.getPassword());
-        assertEquals("wangzuowen",result.getUserName());
+        assertEquals("wangzuowen",result.getUsername());
         assertEquals("798@qq.com",result.getEmail());
         assertEquals(1,result.getId());
     }
