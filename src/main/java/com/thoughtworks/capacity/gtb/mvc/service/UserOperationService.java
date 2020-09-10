@@ -25,4 +25,8 @@ public class UserOperationService {
         }
         userList.add(user);
     }
+
+    public User login(User user) {
+        return null;
+    }
 }

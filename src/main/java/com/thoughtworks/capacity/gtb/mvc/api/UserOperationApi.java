@@ -2,7 +2,6 @@ package com.thoughtworks.capacity.gtb.mvc.api;
 
 import com.thoughtworks.capacity.gtb.mvc.domain.User;
 import com.thoughtworks.capacity.gtb.mvc.exception.InvalidParamsException;
-import com.thoughtworks.capacity.gtb.mvc.result.Result;
 import com.thoughtworks.capacity.gtb.mvc.service.UserOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
