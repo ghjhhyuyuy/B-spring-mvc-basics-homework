@@ -52,4 +52,13 @@ public class UserOperationServiceTest {
                 () -> userOperationService.register(user));
         assertEquals("密码不能为空",exception.getMessage());
     }
+
+    @Test
+    public void should_throw_exception_when_username_is_invalid(){
+        UserOperationService userOperationService = new UserOperationService(userList);
+        User user = new User(null,"zuo-wen",null,null);
+        Throwable exception = assertThrows(Exception.class,
+                () -> userOperationService.register(user));
+        assertEquals("用户名不合法",exception.getMessage());
+    }
 }
