@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 /**
@@ -32,5 +33,14 @@ public class UserOperationServiceTest {
         assertEquals(2,userList.size());
         assertEquals("zuowen",userList.get(1).getUserName());
         assertEquals("111",userList.get(1).getPassword());
+    }
+
+    @Test
+    public void should_throw_exception_when_username_is_null(){
+        UserOperationService userOperationService = new UserOperationService(userList);
+        User user = new User(null,null,null,"111");
+        Throwable exception = assertThrows(Exception.class,
+                () -> userOperationService.register(user));
+        assertEquals("用户名不能为空",exception.getMessage());
     }
 }
