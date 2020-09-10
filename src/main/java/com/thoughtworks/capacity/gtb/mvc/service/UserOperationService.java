@@ -17,5 +17,6 @@ public class UserOperationService {
     }
 
     public void register(User user) {
+        userList.add(user);
     }
 }
