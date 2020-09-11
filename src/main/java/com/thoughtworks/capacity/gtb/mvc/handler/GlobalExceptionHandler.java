@@ -4,11 +4,12 @@ import com.thoughtworks.capacity.gtb.mvc.exception.InvalidParamsException;
 import com.thoughtworks.capacity.gtb.mvc.result.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.net.BindException;
+
 
 /**
  * Created by wzw on 2020/9/10.
@@ -28,5 +29,13 @@ public class GlobalExceptionHandler {
         HttpStatus state = HttpStatus.BAD_REQUEST;
         Error errorError = new Error(state.value(),message);
         return ResponseEntity.status(state).body(errorError);
+    }
+    @ExceptionHandler(BindException.class)
+    public ResponseEntity<Error> handle(BindException bindException) {
+        String message = bindException.getBindingResult().getFieldError().getDefaultMessage();
+        HttpStatus state = HttpStatus.BAD_REQUEST;
+        Error errorError = new Error(state.value(),message);
+        return ResponseEntity.status(state).body(errorError);
+
     }
 }
